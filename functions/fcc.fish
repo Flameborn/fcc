@@ -23,7 +23,7 @@ set -l from (string upper $argv[2])
 set -l to (string upper $argv[3])
 
 # sed with updated regexp (2024-01-29)
-set -l result (curl -sSL "https://www.xe.com/currencyconverter/convert/?Amount=$value&From=$from&To=$to" | sed -n 's/.*sc-1c293993-1[^>]*>\([^<]*\)<.*/\1/p');
+set -l result (curl -sSL "https://www.xe.com/currencyconverter/convert/?Amount=$value&From=$from&To=$to" | sed -n 's/.*sc-295edd9f-1[^>]*>\([^<]*\)<.*/\1/p');
 
 echo "$value $from = $result $to";
 
