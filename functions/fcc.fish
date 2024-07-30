@@ -5,10 +5,10 @@ function fcc -d 'Fish Currency Converter'
         'v/version' 'h/help' -- $argv
     or return 1
 
-    set --local version_fcc 'v1.0'
+    set --local version_fcc '20240730'
 
     if set -q _flag_version
-        echo "fcc: " $version_fcc
+        echo "This is FCC version" $version_fcc
     else if set -q _flag_help
         __fcc_help
     else
@@ -23,8 +23,7 @@ set -l from (string upper $argv[2])
 set -l to (string upper $argv[3])
 
 # sed with updated regexp (2024-01-29)
-set -l result (curl -sSL "https://www.xe.com/currencyconverter/convert/?Amount=$value&From=$from&To=$to" | sed -n 's/.*sc-295edd9f-1[^>]*>\([^<]*\)<.*/\1/p');
-
+set -l result (curl -sSL "https://www.xe.com/currencyconverter/convert/?Amount=$value&From=$from&To=$to" | sed -n 's/.*<p class="sc-[a-z0-9]*-[0-9] [a-zA-Z]*">\([0-9]*\.[0-9]*\)<span class="faded-digits">.*/\1/p')
 echo "$value $from = $result $to";
 
     end
